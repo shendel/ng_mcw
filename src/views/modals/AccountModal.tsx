@@ -156,7 +156,7 @@ const AccountModal = (props) => {
       <div className="fixed inset-0 z-[100] flex items-start justify-center pt-20 px-4 pointer-events-none">
         <div 
           ref={modalRef}
-          className="w-full max-w-md bg-white dark:bg-[#1c1830] rounded-2xl shadow-2xl border border-gray-200 dark:border-white/10 overflow-hidden flex flex-col max-h-[80vh] pointer-events-auto animate-slide-down"
+          className="w-full max-w-md bg-white dark:bg-[#1c1830] rounded shadow-2xl border border-gray-200 dark:border-white/10 overflow-hidden flex flex-col max-h-[80vh] pointer-events-auto animate-slide-down"
           onClick={(e) => e.stopPropagation()}
         >
           
@@ -181,7 +181,7 @@ const AccountModal = (props) => {
                   <div
                     onClick={() => handleSelectAccount(account)}
                     className={`
-                      flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all
+                      flex items-center gap-3 p-3 rounded cursor-pointer transition-all
                       ${isActive 
                         ? 'bg-wallet-purple/10 dark:bg-wallet-purple/20 border-2 border-wallet-purple' 
                         : 'bg-white dark:bg-[#14121e] border-2 border-gray-200 dark:border-white/10 hover:border-wallet-purple'
@@ -190,7 +190,7 @@ const AccountModal = (props) => {
                   >
                     {/* Avatar */}
                     <div className={`
-                      w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0
+                      w-10 h-10 rounded flex items-center justify-center flex-shrink-0
                       ${account.avatarColor || 'bg-gradient-to-br from-purple-400 to-purple-600'}
                     `}>
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

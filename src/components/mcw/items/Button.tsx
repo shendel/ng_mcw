@@ -30,9 +30,9 @@ const Button = (props) => {
 
   // --- Size Classes ---
   const sizeClasses = {
-    sm: "px-3 py-1.5 text-sm rounded-md gap-1.5",
-    md: "px-6 py-3 text-base rounded-lg gap-2",
-    lg: "px-8 py-4 text-lg rounded-xl gap-3",
+    sm: "px-3 py-1.5 text-sm rounded gap-1.5",
+    md: "px-6 py-3 text-base rounded gap-2",
+    lg: "px-8 py-4 text-lg rounded gap-3",
   };
 
   // --- Variant Classes (Normal State) ---

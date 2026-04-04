@@ -10,10 +10,10 @@ const PopupMenu = (props) => {
   return (
     <div
       ref={menuRef}
-      className="fixed z-[150] w-56 bg-white dark:bg-[#1c1830] border border-gray-200 dark:border-white/10 rounded-xl shadow-2xl overflow-hidden animate-scale-in"
+      className="fixed z-[150] w-56 bg-white dark:bg-[#1c1830] border border-gray-200 dark:border-white/10 rounded shadow-2xl overflow-hidden animate-scale-in"
       style={{
-        top: `${top}px`,
-        right: `${right}px`,
+        top: `${((top < 0) ? 0 : top)}px`,
+        right: `${((right < 0) ? 0 : right)}px`,
       }}
     >
       {items.map((item, index) => {

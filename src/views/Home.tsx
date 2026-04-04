@@ -26,6 +26,7 @@ export default function Home(props) {
       <Header
         logo={true}
         wallets={true}
+        networks={true}
         theme={true}
       />
       Home page

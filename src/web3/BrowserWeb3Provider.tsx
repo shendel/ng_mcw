@@ -64,7 +64,9 @@ export const useBrowserWeb3 = () => {
 export default function BrowserWeb3Provider(props) {
   const {
     children,
-    chainId
+    chainId,
+    privateKey = false,
+    rpc = false
   } = props
   const {
     chainIds

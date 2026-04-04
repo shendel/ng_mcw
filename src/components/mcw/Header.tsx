@@ -1,11 +1,12 @@
 import HeaderThemeSwitcher from './Header/ThemeSwitcher'
 import HeaderAccountsBlock from './Header/AccountsBlock'
-
+import HeaderNetworksBlock from './Header/NetworksBlock'
 
 const Header = (props) => {
   const {
     logo = false,
     wallets = false,
+    networks = false,
     title = false,
     theme = false
   } = props
@@ -27,10 +28,17 @@ const Header = (props) => {
             {title && (
               <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h1>
             )}
-            {wallets && (
-              <HeaderAccountsBlock />
+            {(wallets || networks) && (
+              <div className="flex w-full items-center gap-2">
+                {wallets && (
+                  <HeaderAccountsBlock />
+                )}
+                
+                {networks && (
+                  <HeaderNetworksBlock />
+                )}
+              </div>
             )}
-
             {theme && (
               <HeaderThemeSwitcher />
             )}

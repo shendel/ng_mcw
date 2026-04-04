@@ -11,6 +11,8 @@ import {
   MAINNET_CONTRACT,
 } from '@/config'
 
+import { useStorage } from '@/contexts/StorageContext'
+
 const allChainIds = Object.keys(NETWORKS).map((slug) => {
   return NETWORKS[slug].chainId
 })

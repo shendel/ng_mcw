@@ -5,7 +5,6 @@ import AccountModal from '@/views/modals/AccountModal'
 import { useModal } from '@/contexts/ModalContext'
 
 const HeaderAccountsBlock = (props) => {
-  const [ isModalOpen, setIsModalOpen ] = useState(false)
   const { values: storageData, getValue } = useStorage()
   const { openModal, closeModal } = useModal()
   
@@ -88,19 +87,6 @@ const HeaderAccountsBlock = (props) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
-      <AccountModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        accounts={accounts}
-        activeAccountId={activeAccountId}
-        onSelectAccount={handleSelectAccount}
-        onAddAccount={handleAddAccount}
-        onImportAccount={handleImportAccount}
-        onEditAccount={handleEditAccount}
-        onDeleteAccount={handleDeleteAccount}
-        onExportAccount={handleExportAccount}
-        onShowKeys={handleShowKeys}
-      />
     </>
   )
 }
