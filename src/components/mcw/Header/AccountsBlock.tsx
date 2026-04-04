@@ -5,17 +5,16 @@ import AccountModal from '@/views/modals/AccountModal'
 import { useModal } from '@/contexts/ModalContext'
 
 const HeaderAccountsBlock = (props) => {
-  const { values: storageData, getValue } = useStorage()
+  const { values: storageData, getValue, setValue } = useStorage()
   const { openModal, closeModal } = useModal()
   
   const accounts = getValue('accounts')
   const activeAccount = getValue('activeAccount')
   
-  const accountData = accounts?.[activeAccount] || false
+  const accountData = accounts.find(({ id }) => { return id == activeAccount})
   
   const handleSelectAccount = (account) => {
-    console.log('select account', account)
-    alert(`Аккаунт активирован: ${account.name}`);
+    setValue('activeAccount', account.id)
   };
 
   const handleAddAccount = () => {

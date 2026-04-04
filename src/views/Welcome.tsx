@@ -77,6 +77,7 @@ export default function Welcome(props) {
     const accounts = values.accounts
     accounts.push( newAccount )
     setValue('accounts', accounts)
+    setValue('activeAccount', newAccount.id)
   }
 
   return (
