@@ -1,6 +1,8 @@
 import Home from '@/views/Home'
 import Welcome from '@/views/Welcome'
 
+import InputDemo from '@/views/InputDemo'
+
 import Page404 from '@/pages/404'
 import HashRouterViews from '@/components/HashRouterViews'
 import { useStorage } from '@/contexts/StorageContext'
@@ -12,7 +14,7 @@ const MCWRouter = (props) => {
   
   console.log('>>> storage', accounts)
   const viewsPaths = {
-    '/': (accounts?.length == 0) ? Welcome : Home,
+    '/': Home,
     '/welcome': Welcome,
   }
 

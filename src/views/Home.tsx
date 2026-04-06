@@ -7,6 +7,9 @@ import ConnectWalletButton from '@/components/ConnectWalletButton'
 
 import LoadingPlaceholder from '@/components/LoadingPlaceholder'
 import Header from '@/components/mcw/Header'
+import AssetsList from '@/components/mcw/AssetsList'
+import Button from '@/components/mcw/items/Button'
+import { useStorage } from '@/contexts/StorageContext'
 
 export default function Home(props) {
   const {
@@ -15,11 +18,19 @@ export default function Home(props) {
     on404
   } = props
 
+  const { getValue } = useStorage()
+
+  const accounts = getValue('accounts')
+  
+  useEffect(() => {
+    if (accounts.length == 0) {
+      gotoPage('/welcome')
+    }
+  }, [ accounts ])
   const {
     isConnected,
     injectedAccount
   } = useInjectedWeb3()
-
 
   return (
     <>
@@ -29,7 +40,7 @@ export default function Home(props) {
         networks={true}
         theme={true}
       />
-      Home page
+      <AssetsList />
     </>
   )
 }

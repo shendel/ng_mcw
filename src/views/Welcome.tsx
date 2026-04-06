@@ -78,6 +78,7 @@ export default function Welcome(props) {
     accounts.push( newAccount )
     setValue('accounts', accounts)
     setValue('activeAccount', newAccount.id)
+    setCurrentStep(4)
   }
 
   return (
@@ -211,7 +212,7 @@ export default function Welcome(props) {
                   <BackIcon />
                   {`Назад`}
                 </Button>
-                <Button fullWidth={true} onClick={() => { setCurrentStep(4) }}>
+                <Button fullWidth={true} onClick={() => { handleCreateWallet() }}>
                   {`Создать`}
                   <ForwardIcon />
                 </Button>
@@ -256,7 +257,7 @@ export default function Welcome(props) {
                 <BackIcon />
                 {`Назад`}
               </Button>
-              <Button fullWidth={true} disabled={!validateMnemonicWords(seedWords.join(' '))} onClick={() => { setCurrentStep(4) }}
+              <Button fullWidth={true} disabled={!validateMnemonicWords(seedWords.join(' '))} onClick={() => { handleCreateWallet() }}
                 variant='brand'
               >
                 <RefreshIcon />
@@ -287,7 +288,7 @@ export default function Welcome(props) {
                 </div>
               </div>
             </div>
-            <Button fullWidth={true} onClick={handleCreateWallet}>
+            <Button fullWidth={true} onClick={() => { gotoPage('/') }}>
               Готово
             </Button>
           </div>

@@ -38,8 +38,8 @@ const Button = (props) => {
   // --- Variant Classes (Normal State) ---
   const variantClasses = {
     brand: "bg-wallet-purple hover:bg-wallet-purple-hover text-white shadow-lg shadow-purple-500/30 hover:shadow-purple-500/40 hover:-translate-y-0.5",
-    second: "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100",
-    outline: "bg-transparent border-2 border-wallet-purple text-wallet-purple hover:bg-wallet-purple hover:text-white",
+    second: "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 hover:-translate-y-0.5",
+    outline: "bg-transparent border-2 border-wallet-purple text-wallet-purple hover:bg-wallet-purple hover:text-white hover:-translate-y-0.5",
   };
 
   // --- Disabled Classes ---

@@ -44,7 +44,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ keys, defaults
   const [values, setValues] = useState<StorageMap>({});
   const isMounted = useRef(false);
   const lastUpdatedKey = useRef<string | null>(null);
-console.log('StorageProvider', keys, defaults)
+
   // Хелпер: LS → дефолт → null
   const resolveValue = useCallback(
     (key: string, raw: string | null): StorageValue => {

@@ -13,17 +13,22 @@ const fetchTokenBalance = (options) => {
     
     const contract = new web3.eth.Contract(TokenAbi, tokenAddress)
     contract.methods.symbol().call().then((symbol) => {
-      contract.methods.decimals().call().then((decimals) => {
-        contract.methods.balanceOf(wallet).call().then((balance) => {
-          const normalized = fromWei(balance, decimals)
-          resolve({
-            wallet,
-            tokenAddress,
-            chainId,
-            decimals,
-            wei: balance,
-            normalized,
-            symbol,
+      contract.methods.name().call().then((name) => {
+        contract.methods.decimals().call().then((decimals) => {
+          contract.methods.balanceOf(wallet).call().then((balance) => {
+            const normalized = fromWei(balance, decimals)
+            resolve({
+              wallet,
+              tokenAddress,
+              chainId,
+              name,
+              decimals,
+              wei: balance,
+              normalized,
+              symbol,
+            })
+          }).catch((err) => {
+            reject(err)
           })
         }).catch((err) => {
           reject(err)

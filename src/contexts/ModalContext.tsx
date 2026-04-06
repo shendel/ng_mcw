@@ -78,7 +78,8 @@ export default function ModalProvider({ children }) {
               onClick={modal.onBgClick}
               className={`
                 ${((modal.fullWidth) ? 'overflow-y-auto' : 'items-center flex')}
-                fixed inset-0 bg-black/80 backdrop-blur-sm z-50 justify-center p-4
+                fixed inset-0 bg-black/80 backdrop-blur-sm z-50 justify-center
+                ${(modal.onlyLayer) ? '' : 'p-4'}
                 `}
             >
               

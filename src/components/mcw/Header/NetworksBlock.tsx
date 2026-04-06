@@ -19,6 +19,7 @@ const HeaderNetworksBlock = (props) => {
   }
 
   const handleAddNetwork = () => {
+    setValue('networks', networks)
     alert('Открыть форму добавления кастомной сети')
   }
 

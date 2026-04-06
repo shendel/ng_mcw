@@ -1,3 +1,5 @@
+'use client'
+
 const NETWORKS = {
   energy: {
     chainId: 2800500,
