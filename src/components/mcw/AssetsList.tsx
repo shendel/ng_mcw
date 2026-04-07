@@ -45,8 +45,25 @@ const AssetsList = (props) => {
   const menuRef = useRef(null)
   const assetsMenuRef = useRef(null)
 
-  const { assets } = useAssets()
-
+  const { assets, getAssetBalance, assetsBalances } = useAssets()
+  /*
+  const [ assets, setAssets ] = useState([])
+  useEffect(() => {
+    console.log('assetsList', assetsList, assetsList.map)
+    setAssets(
+      assetsList.map((a) => {
+        return {
+          ...a,
+          isBalanceFetching: !(assetsBalances[a.key]),
+          balance: (assetsBalances[a.key])
+            ? Number(assetsBalances[a.key].normal)
+            : 0
+        }
+      })
+    )
+    
+  }, [ assetsList, assetsBalances ])
+*/
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -192,7 +209,7 @@ const AssetsList = (props) => {
     return 'text-gray-500'
   }
 
-
+console.log('>>>> ASSETS', assets, assetsBalances)
   return (
     <div className="relative">
       {/* Header */}
@@ -251,11 +268,13 @@ const AssetsList = (props) => {
                         {asset.name}
                       </span>
                     </div>
+                    {/*
                     {change !== undefined && (
                       <div className={`text-sm font-medium ${getChangeColor(change)}`}>
                         {change > 0 ? '+' : ''}{change.toFixed(2)}%
                       </div>
                     )}
+                    */}
                   </div>
                 </div>
 
@@ -266,7 +285,11 @@ const AssetsList = (props) => {
                       ${asset.usdValue?.toFixed(2) || '0.00'}
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
-                      {asset.amount?.toFixed(6) || '0'} {asset.symbol}
+                      {(asset.isBalanceFetching) ? (
+                        <>...</>
+                      ) : (
+                        <>{asset.balance.toFixed(6) || '0'} {asset.symbol}</>
+                      )}
                     </div>
                   </div>
                   <button

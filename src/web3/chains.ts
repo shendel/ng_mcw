@@ -126,6 +126,23 @@ export const GET_CHAIN_RPC = (chainId) => {
   if (chainData.length) return NETWORKS[chainData[0]].rpc
 }
 
+export const IS_HAS_MULTICAL = (chainId) => {
+  let lsNetworks = false
+  try {
+    lsNetworks = localStorage.getItem('networks')
+    lsNetworks = JSON.parse(lsNetworks)
+  } catch (e) {}
+  if (lsNetworks) {
+    const chainData = lsNetworks.find((nd) => { return Number(chainId) == Number(nd.chainId) })
+    console.log('from ls')
+    if (chainData) return !!chainData.multicall
+  }
+  const chainData = Object.keys(NETWORKS).filter((chainName) => {
+    return `${NETWORKS[chainName].chainId}` == `${chainId}`
+  })
+  if (chainData.length) return !!NETWORKS[chainData[0]].multicall
+}
+
 export const GET_CHAIN_MULTICALL = (chainId) => {
   let lsNetworks = false
   try {
@@ -149,7 +166,7 @@ export const getChainsConfig = (chainIds) => {
     : (chainIds instanceof Array)
       ? chainIds.map((chainId) => { return GET_CHAIN_BYID(chainId) })
       : [GET_CHAIN_BYID(chainIds)]
-console.log('>>> networks', networks)
+
   return configureChains(
     networks,
     [

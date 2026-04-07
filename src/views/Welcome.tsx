@@ -60,7 +60,7 @@ export default function Welcome(props) {
 
   const handleCreateWallet = () => {
     const wallet = getEthLikeWallet({
-      mnemonic: seedWords
+      mnemonic: seedWords.join(' ')
     })
 
     const newAccount = {

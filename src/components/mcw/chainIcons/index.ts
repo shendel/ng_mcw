@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ETH  from './eth.png'
 import BNB from './bnb.png'
 import OP_BNB from './opbnb.svg'

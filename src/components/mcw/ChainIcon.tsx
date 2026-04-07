@@ -1,4 +1,4 @@
-import chainIcons from './'
+import chainIcons from './chainIcons/'
 import DefaultIcon from '@/components/mcw/icons/ChainIcon'
 
 const ChainIcon = (props) => {

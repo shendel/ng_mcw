@@ -32,9 +32,12 @@ export default function Home(props) {
         networks={true}
         theme={true}
       />
-      <AssetsList
-        gotoPage={gotoPage}
-      />
+      
+      <div className="animate-fade-in pt-4">
+        <AssetsList
+          gotoPage={gotoPage}
+        />
+      </div>
     </>
   )
 }
