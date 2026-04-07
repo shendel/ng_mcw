@@ -1,7 +1,6 @@
 import Home from '@/views/Home'
 import Welcome from '@/views/Welcome'
-
-import InputDemo from '@/views/InputDemo'
+import AssetInfo from '@/views/AssetInfo'
 
 import Page404 from '@/pages/404'
 import HashRouterViews from '@/components/HashRouterViews'
@@ -16,6 +15,7 @@ const MCWRouter = (props) => {
   const viewsPaths = {
     '/': Home,
     '/welcome': Welcome,
+    '/asset/:key': AssetInfo,
   }
 
   return (

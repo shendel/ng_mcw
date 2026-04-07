@@ -5,6 +5,7 @@ import { StorageProvider } from '@/contexts/StorageContext'
 
 import AppRootWrapper from '@/components/AppRootWrapper'
 import MCWRouter from './_routing'
+import AssetsProvider from '@/contexts/AssetsProvider'
 
 import {
   STORAGE_KEYS
@@ -15,7 +16,9 @@ function MyApp(pageProps) {
     <>
       <StorageProvider keys={Object.keys(STORAGE_KEYS)} defaults={STORAGE_KEYS}>
         <AppRootWrapper>
-          <MCWRouter />
+          <AssetsProvider>
+            <MCWRouter />
+          </AssetsProvider>
         </AppRootWrapper>
       </StorageProvider>
     </>

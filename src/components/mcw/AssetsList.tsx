@@ -4,13 +4,21 @@ import AddIcon from '@/components/mcw/icons/AddIcon'
 import EditIcon from '@/components/mcw/icons/EditIcon'
 import DeleteIcon from '@/components/mcw/icons/DeleteIcon'
 import CloseIcon from '@/components/mcw/icons/CloseIcon'
+import HideIcon from '@/components/mcw/icons/HideIcon'
+import ShowIcon from '@/components/mcw/icons/ShowIcon'
+import SendIcon from '@/components/mcw/icons/SendIcon'
 import SettingsIcon from '@/components/mcw/icons/SettingsIcon'
+import ReceiveIcon from '@/components/mcw/icons/ReceiveIcon'
+import InfoIcon from '@/components/mcw/icons/InfoIcon'
 import PopupMenu from '@/components/mcw/items/PopupMenu'
 import SelectAssetsNetworksModal from '@/views/modals/SelectAssetsNetworksModal'
 import { useModal } from '@/contexts/ModalContext'
 import { useStorage } from '@/contexts/StorageContext'
 import { GET_CHAIN_BYID } from '@/web3/chains'
 import AddTokenModal from '@/views/modals/AddTokenModal'
+import MenuDotsIcon from '@/components/mcw/icons/MenuDotsIcon'
+import { useAssets } from '@/contexts/AssetsProvider'
+
 
 /**
  * Assets List Component
@@ -23,10 +31,7 @@ import AddTokenModal from '@/views/modals/AddTokenModal'
  */
 const AssetsList = (props) => {
   const {
-    onAddToken,
-    onHideZeroBalances,
-    onSortByBalance,
-    onSettings,
+    gotoPage,
   } = props
 
   const { openModal, closeModal } = useModal()
@@ -34,53 +39,33 @@ const AssetsList = (props) => {
   
   const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0, direction: 'down' })
   const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const [isAssetsMenuVisible, setIsAssetsMenuVisible ] = useState(false)
+  const [menuForAsset, setMenuForAsset ] = useState(false)
+
   const menuRef = useRef(null)
+  const assetsMenuRef = useRef(null)
 
-  const [ assetsNetworks, setAssetsNetworks ] = useState([])
-  useEffect(() => {
-    setAssetsNetworks(getStorageValue('assetNetworks'))
-    console.log('Tokens>', getStorageValue('assets'))
-  }, [ storageValues ])
-  
-  const [ assets, setAssets ] = useState([])
+  const { assets } = useAssets()
 
-  useEffect(() => {
-    const _assets = []
-    
-    assetsNetworks.forEach((chainId) => {
-      const chainInfo = GET_CHAIN_BYID(chainId)
-      if (chainInfo) {
-        _assets.push({
-          key: chainInfo.id,
-          chainId: chainId.id,
-          type: 'NATIVE',
-          name: chainInfo.name,
-          symbol: chainInfo.nativeCurrency.symbol,
-          amount: 0,
-          usdValue: 0
-        })
-      }
-      
-    })
-    setAssets(_assets)
-  }, [ assetsNetworks ])
-  
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuVisible(false)
       }
+      if (assetsMenuRef.current && !assetsMenuRef.current.contains(event.target)) {
+        setIsAssetsMenuVisible(false)
+      }
     }
 
-    if (isMenuVisible) {
+    if (isMenuVisible || isAssetsMenuVisible) {
       document.addEventListener('mousedown', handleClickOutside)
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [isMenuVisible])
+  }, [isMenuVisible, isAssetsMenuVisible])
 
   // Close on Escape key
   useEffect(() => {
@@ -113,9 +98,40 @@ const AssetsList = (props) => {
 
     setIsMenuVisible(true)
   }
+  
+  const [ assetsMenuItem, setAssetsMenuItem ] = useState(null)
+  const [ assetsMenuButton, setAssetsMenuButton ] = useState(null)
+  useEffect(() => {
+    if (isAssetsMenuVisible && assetsMenuButton) {
+      
+      const button = assetsMenuButton
+      const rect = button.getBoundingClientRect()
+      const menuRect = assetsMenuRef.current.getBoundingClientRect()
+      const menuHeight = menuRect.height
+      const gap = 0
+
+      const spaceBelow = window.innerHeight - rect.bottom
+      const direction = spaceBelow < menuHeight + gap ? 'up' : 'down'
+
+      setMenuPosition({
+        top: direction === 'down' ? rect.bottom + gap : rect.top - menuHeight - gap,
+        right: window.innerWidth - rect.right,
+        direction,
+      })
+    }
+  }, [ isAssetsMenuVisible, assetsMenuButton ])
+  
+  const openAssetsMenu = (event, assetInfo) => {
+    event.stopPropagation()
+    setAssetsMenuItem(assetInfo)
+    setIsAssetsMenuVisible(true)
+    setAssetsMenuButton(event.currentTarget)
+  }
+
 
   const closeMenu = () => {
     setIsMenuVisible(false)
+    setIsAssetsMenuVisible(false)
   }
 
   const handleMenuAction = (action) => {
@@ -132,10 +148,10 @@ const AssetsList = (props) => {
         })
         break
       case 'hideZero':
-        onHideZeroBalances?.()
+        
         break
       case 'sortByBalance':
-        onSortByBalance?.()
+        
         break
       case 'settings':
         openModal({
@@ -195,9 +211,7 @@ const AssetsList = (props) => {
           onClick={openMenu}
           className="p-1.5 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors relative"
         >
-          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-          </svg>
+          <MenuDotsIcon size={5} />
         </button>
       </div>
 
@@ -209,7 +223,10 @@ const AssetsList = (props) => {
           return (
             <div
               key={asset.key}
-              className="group bg-white dark:bg-[#1c1830] border border-gray-200 dark:border-white/10 rounded p-4 hover:border-wallet-purple transition-all cursor-pointer"
+              onClick={() => {
+                gotoPage(`/asset/${asset.key}`)
+              }}
+              className="group bg-white dark:bg-[#1c1830] border border-gray-200 dark:border-white/10 rounded p-4 hover:border-wallet-purple transition-all cursor-pointer pr-0"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -243,13 +260,23 @@ const AssetsList = (props) => {
                 </div>
 
                 {/* Values */}
-                <div className="text-right">
-                  <div className="font-semibold text-gray-900 dark:text-gray-100">
-                    ${asset.usdValue?.toFixed(2) || '0.00'}
+                <div className="flex">
+                  <div className="text-right">
+                    <div className="font-semibold text-gray-900 dark:text-gray-100">
+                      ${asset.usdValue?.toFixed(2) || '0.00'}
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                      {asset.amount?.toFixed(6) || '0'} {asset.symbol}
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    {asset.amount?.toFixed(6) || '0'} {asset.symbol}
-                  </div>
+                  <button
+                    onClick={(e) => {
+                      openAssetsMenu(e, asset)
+                    }}
+                    className="p-1.5 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors relative"
+                  >
+                    <MenuDotsIcon size={5} />
+                  </button>
                 </div>
               </div>
             </div>
@@ -262,8 +289,23 @@ const AssetsList = (props) => {
           </div>
         )}
       </div>
-
+      
       {/* Popup Menu */}
+      {isAssetsMenuVisible && (
+        <>
+          <PopupMenu
+            menuRef={assetsMenuRef}
+            top={menuPosition.top}
+            right={menuPosition.right}
+            items={[
+              {
+                title: (<><SendIcon />{'Asset item'}</>),
+                onClick: () => handleMenuAction('asd')
+              }
+            ]}
+          />
+        </>
+      )}
       {isMenuVisible && (
         <>
           <PopupMenu

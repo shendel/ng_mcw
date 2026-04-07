@@ -1,11 +1,7 @@
 
 import { useEffect, useState, Component } from "react"
 
-import { useInjectedWeb3 } from '@/web3/InjectedWeb3Provider'
 
-import ConnectWalletButton from '@/components/ConnectWalletButton'
-
-import LoadingPlaceholder from '@/components/LoadingPlaceholder'
 import Header from '@/components/mcw/Header'
 import AssetsList from '@/components/mcw/AssetsList'
 import Button from '@/components/mcw/items/Button'
@@ -27,10 +23,6 @@ export default function Home(props) {
       gotoPage('/welcome')
     }
   }, [ accounts ])
-  const {
-    isConnected,
-    injectedAccount
-  } = useInjectedWeb3()
 
   return (
     <>
@@ -40,7 +32,9 @@ export default function Home(props) {
         networks={true}
         theme={true}
       />
-      <AssetsList />
+      <AssetsList
+        gotoPage={gotoPage}
+      />
     </>
   )
 }
