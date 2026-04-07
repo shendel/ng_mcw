@@ -209,12 +209,11 @@ const AssetsList = (props) => {
     return 'text-gray-500'
   }
 
-console.log('>>>> ASSETS', assets, assetsBalances)
   return (
     <div className="relative">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 p-2">
           <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Ваши валюты</h2>
           <button
             onClick={() => handleMenuAction('settings')}

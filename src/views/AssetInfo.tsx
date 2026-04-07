@@ -117,7 +117,7 @@ export default function AssetInfo(props) {
             </div>
             <div className="text-right">
               <div className="font-semibold text-gray-900 dark:text-gray-100">...</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">{assetInfo.amount} {assetInfo.symbol}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">{assetInfo.balance} {assetInfo.symbol}</div>
             </div>
           </div>
           
