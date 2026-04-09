@@ -1,4 +1,5 @@
 import { useEffect, useState, Component, useRef } from "react"
+import { v4 as uuidv4 } from 'uuid';
 import Header from '@/components/mcw/Header'
 
 import LabelWithCheck from '@/components/mcw/items/LabelWithCheck'
@@ -59,13 +60,14 @@ export default function Welcome(props) {
   }
 
   const handleCreateWallet = () => {
+    console.log('>> seedWords', seedWords)
     const wallet = getEthLikeWallet({
-      mnemonic: seedWords.join(' ')
+      mnemonic: Array.isArray(seedWords) ? seedWords.join(' ') : seedWords
     })
 
     const newAccount = {
       name: 'Account #1',
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       address: wallet.address,
       type: 'seed',
       wallet: {
@@ -257,7 +259,10 @@ export default function Welcome(props) {
                 <BackIcon />
                 {`Назад`}
               </Button>
-              <Button fullWidth={true} disabled={!validateMnemonicWords(seedWords.join(' '))} onClick={() => { handleCreateWallet() }}
+              <Button fullWidth={true} disabled={!validateMnemonicWords(seedWords.join(' '))} onClick={() => {
+                setSeedWords(seedWords.join(' '))
+                handleCreateWallet()
+              }}
                 variant='brand'
               >
                 <RefreshIcon />

@@ -5,6 +5,7 @@ import AccountModal from '@/views/modals/AccountModal'
 import { useModal } from '@/contexts/ModalContext'
 
 const HeaderAccountsBlock = (props) => {
+  const { gotoPage } = props
   const { values: storageData, getValue, setValue } = useStorage()
   const { openModal, closeModal } = useModal()
   
@@ -18,7 +19,7 @@ const HeaderAccountsBlock = (props) => {
   };
 
   const handleAddAccount = () => {
-    alert('Открыть форму создания нового аккаунта');
+    gotoPage('/welcome')
   };
 
   const handleImportAccount = () => {

@@ -68,14 +68,16 @@ export default function BrowserWeb3Provider(props) {
       setBrowserAccount(account)
       setBrowserPK(privateKey)
       setBrowserRPC(activeRPC)
-      setBrowserChainId(activeChainId)
+      setBrowserChainId(chainId)
+      console.log('>> setBrowserChainId', chainId)
+      //setBrowserChainId(activeChainId)
     }
-  }, [ activeChainId, activePK, activeRPC ])
+  }, [ activeChainId, activePK, activeRPC, chainId ])
 
   useEffect(() => {
     console.log('PK CHANGE')
     setActivePK(privateKey)
-    setActiveChainId(rpc)
+    setBrowserRPC(rpc)
   }, [ privateKey, rpc ])
   const switchAccount = (newPK) => {
     const { web3, account, privateKey } = authBrowserWeb3(browserChainId, newPK)
@@ -88,6 +90,7 @@ export default function BrowserWeb3Provider(props) {
 
   const switchNetwork = (newChainId) => {
     setActiveChainId(newChainId)
+    setBrowserChainId(newChainId)
   }
   
   return (

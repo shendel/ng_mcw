@@ -9,6 +9,7 @@ import HeaderMenuIcon from '@/components/mcw/icons/HeaderMenuIcon'
 
 const Header = (props) => {
   const {
+    gotoPage = () => {},
     logo = false,
     wallets = false,
     networks = false,
@@ -95,7 +96,7 @@ const Header = (props) => {
           {(wallets || networks) && (
             <div className="flex w-full items-center gap-2">
               {wallets && (
-                <HeaderAccountsBlock />
+                <HeaderAccountsBlock gotoPage={gotoPage} />
               )}
               
               {networks && (

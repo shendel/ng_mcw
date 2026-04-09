@@ -9,6 +9,7 @@ import { useStorage } from '@/contexts/StorageContext'
 import DaoModalConnect from '@/views/modals/dao/Connect'
 import DaoModalSignTx from '@/views/modals/dao/SignTx'
 import DaoModalSignMessage from '@/views/modals/dao/SignMessage'
+import DaoModalConfirm from '@/views/modals/dao/Confirm'
 
 import { useModal } from '@/contexts/ModalContext'
 
@@ -37,7 +38,7 @@ export default function Home(props) {
       fullWidth: true,
       onBgClick: () => { },
       content: (
-        <DaoModalSignMessage />
+        <DaoModalConfirm />
       )
     })
   }
@@ -47,6 +48,7 @@ export default function Home(props) {
         logo={true}
         wallets={true}
         networks={true}
+        gotoPage={gotoPage}
         theme={true}
       />
       

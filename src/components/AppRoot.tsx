@@ -5,6 +5,8 @@ import NotificationProvider from "@/contexts/NotificationContext"
 import HashRouterProvider from '@/contexts/HashRouterProvider'
 import MarkDownProvider from '@/contexts/MarkDownContext'
 import BrowserWeb3Provider from '@/web3/BrowserWeb3Provider'
+import WalletBridge from '@/components/mcw/WalletBridge'
+import WalletConfirmationModal from '@/components/mcw/WalletConfirmationModal'
 
 import NETWORKS from '@/constants/NETWORKS'
 import {
@@ -54,6 +56,7 @@ export default function AppRoot(props) {
             <ModalProvider>
               <HashRouterProvider>
                 {children}
+                <WalletBridge />
               </HashRouterProvider>
             </ModalProvider>
           </NotificationProvider>
